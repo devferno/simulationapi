@@ -8,13 +8,14 @@ import Credits from "./components/Credits";
 import axios from "axios";
 import Simuler from "./components/Simuler";
 import Verifier from "./components/Verfier";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Historique from "./components/Historique";
 
 axios.defaults.baseURL = "https://simulation-credit.herokuapp.com/api/";
 
-function PrivateRoute() {
-  return localStorage.getItem("client") ? <Outlet /> : <Signup />;
+function PrivateOutlet() {
+  const auth = localStorage.getItem("client");
+  return auth ? <Outlet /> : <Navigate to="/signup" />;
 }
 
 function App() {
@@ -25,12 +26,13 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
 
-        <Route element={<PrivateRoute />}>
+        <Route element={<PrivateOutlet />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/simuler" element={<Simuler />} />
-          <Route path="/verifier" element={<Verifier />} />
           <Route path="/historique" element={<Historique />} />
+          <Route path="/verifier" element={<Verifier />} />
         </Route>
+
         <Route path="/" element={<Credits />} />
       </Routes>
       <Footer />
