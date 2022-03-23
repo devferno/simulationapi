@@ -64,10 +64,10 @@ const Simuler = () => {
     },
   ];
   const champs = [
-    { name: "prix", icon: "", placeholder: "montant" },
-    { name: "duree", icon: "", placeholder: "duree" },
-    { name: "taux", icon: "", placeholder: "taux" },
-    { name: "salaire", icon: "", placeholder: "salaire" },
+    { name: "prix", icon: "", placeholder: "Montant" },
+    { name: "duree", icon: "", placeholder: "Duree" },
+    { name: "taux", icon: "", placeholder: "Taux" },
+    { name: "salaire", icon: "", placeholder: "Salaire" },
   ];
 
   const [data, setData] = useState();
@@ -88,7 +88,7 @@ const Simuler = () => {
     []
   );
   const navigate = useNavigate();
-
+  const [msg, setMsg] = useState(false);
   const sendData = (e) => {
     e.preventDefault();
     axios
@@ -97,10 +97,12 @@ const Simuler = () => {
         setData(res.data);
         setLength(res.data.amortissement.length);
         setHide(false);
+        setMsg(false);
         myRef.current.scrollIntoView();
       })
       .catch((err) => {
         if (err.response.status == 403) navigate("/verifier");
+        if (err.response.status == 404) setMsg(true);
       });
   };
   return (
@@ -128,6 +130,15 @@ const Simuler = () => {
               width: { xs: "100%", md: "100%" },
             }}
           >
+            {msg && (
+              <Typography
+                variant="body2"
+                sx={{ textAlign: "center", color: "red" }}
+              >
+                Désolé, Votre salaire est insuffisant pour un crédit de telle
+                montant.
+              </Typography>
+            )}
             <Typography variant="h5" sx={{ my: 2, textAlign: "center" }}>
               Simuler
             </Typography>
@@ -136,10 +147,10 @@ const Simuler = () => {
                 key={item.name}
                 value={simulation[item.name]}
                 placeholder={item.placeholder}
-                type="number"
+                type={item.name}
                 name={item.name}
                 sx={{ width: "300px", my: 1 }}
-                label={item.name}
+                label={item.placeholder}
                 onChange={handleChange}
                 required
               />
