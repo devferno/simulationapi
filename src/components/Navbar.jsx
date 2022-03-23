@@ -14,13 +14,13 @@ const Navbar = () => {
               <Link to="/">
                   <Typography variant="body1" sx={{mx:2}}>credits</Typography>
               </Link>
-              <Link to="/simuler">
+              {/* <Link to="/simuler">
                   <Typography variant="body1" sx={{mx:2}}>simuler</Typography>
-              </Link>
+              </Link> */}
               {/* <Link to="/historique">
                   <Typography variant="body1" sx={{mx:2}}>historique</Typography>
               </Link> */}
-              <Link to="/signup">
+              <Link to="/simuler">
                   <Button variant="contained" sx={{ml:2}} disableElevation>signup</Button>
               </Link>
           </Box>

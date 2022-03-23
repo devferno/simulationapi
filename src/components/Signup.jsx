@@ -98,7 +98,7 @@ const Signup = () => {
           }}
         >
           <Typography variant="h4" sx={{ my: 3,color:blueGrey[800],fontWeight:"300" }}>
-            Few steps before simulation
+            Une étape avant la simulation
           </Typography>
           <TextField
             variant="outlined"
@@ -144,8 +144,8 @@ const Signup = () => {
           required
             value={userInfo.jsuis}
             select
-            label="Projet"
-            helperText="Please select your projet"
+            label="Profession"
+            helperText="selectionner votre profession"
             sx={{ width: "300px", my: 1 }}
             onChange={handleChange}
             name="jsuis"
