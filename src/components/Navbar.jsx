@@ -21,7 +21,7 @@ const Navbar = () => {
                   <Typography variant="body1" sx={{mx:2}}>historique</Typography>
               </Link> */}
               <Link to="/simuler">
-                  <Button variant="contained" sx={{ml:2}} disableElevation>signup</Button>
+                  <Button variant="contained" sx={{ml:2}} disableElevation>Simuler</Button>
               </Link>
           </Box>
       </Box>
