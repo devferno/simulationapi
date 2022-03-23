@@ -32,7 +32,7 @@ const Historique = () => {
   }, []);
 
   return (
-    <Box sx={{ margin: "40px auto" }}>
+    <Box sx={{ margin: "40px auto",padding:"20px 0" }}>
       <Container>
         <Typography
           variant="h4"
@@ -40,7 +40,7 @@ const Historique = () => {
         >
           Historique des simulations
         </Typography>
-        {data.length===0?<Typography variant="h6">Vous fait aucun simulation</Typography>:
+        {data.length===0?<Typography variant="h6"></Typography>:
         data.map((simulation, index) => (
           <Accordion
             key={simulation.id}

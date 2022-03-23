@@ -9,6 +9,8 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {blueGrey} from "@mui/material/colors";
+import Back from "./back3.jpg";
 //page where user will enter his info to signup
 //i get : info about the projet existed
 //user post : his email and projet then i redirect him to /profile page
@@ -53,7 +55,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const signup = (e) => {
     e.preventDefault();
-    console.log(userInfo);
+    setUserInfo(prev=>({...prev,age:parseInt(userInfo.age)}));
 
     axios
       .post(
@@ -65,42 +67,84 @@ const Signup = () => {
         localStorage.setItem("client", res.data.id);
         localStorage.setItem("verified",res.data.verified);
       
-      }).then((res)=>  navigate("/profile"))
+      }).then((res)=>  navigate("/simuler"))
   };
 
   return (
-    <Box>
+    <Box sx={{ margin: "30px 0", padding: "30px 0",borderRadius:"4px",overflow:"hidden" }}>
       <Container>
+        <Box     sx={{
+            background: "white",
+            display: "flex",
+            justifyContent: "space-between",
+            overflow: "hidden",
+          }}>
+        <Box sx={{background:`url(${Back})`,flexShrink:1,width:"100%",minHeight:"100%",backgroundSize:"cover"}}>
+
+        </Box>
         <Box
           component="form"
           onSubmit={signup}
           sx={{
-            border: "1px solid #e3e3e3",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            p: 4,
-            my: 4,
-            width: { xs: "80%", md: "50%" },
-            mx: "auto",
+            flexShrink: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+
+              p: 2,
+              border: "solid 2px #e3e3e3",
+              // margin: "40px auto",
+              width: { xs: "100%", md: "100%" },
           }}
         >
-          <Typography variant="h4" sx={{ my: 3 }}>
-            S'inscrire
+          <Typography variant="h4" sx={{ my: 3,color:blueGrey[800],fontWeight:"300" }}>
+            Few steps before simulation
           </Typography>
           <TextField
             variant="outlined"
             sx={{ width: "300px", my: 1 }}
-            fullWidth
+           
+              fullWidth label="Email"
+              type="email"
+              required
             name="email"
-            placeholder="email"
+            placeholder="Email"
             value={userInfo.email}
             onChange={handleChange}
           />
           <TextField
+            fullWidth label="Nom Complet"
+            variant="outlined"
+            sx={{ width: "300px", my: 1 }}
+            required
+            name="name"
+            placeholder="Nom complet"
+            value={userInfo.name}
+            onChange={handleChange}/>
+          <TextField
+            fullWidth label="Age"
+            variant="outlined"
+            sx={{ width: "300px", my: 1 }}
+            name="age"
+            required
+            placeholder="Age"
+            type="number"
+            value={userInfo.age}
+            onChange={handleChange}/>
+          <TextField
+          required
+            fullWidth label="Sexe"
+            variant="outlined"
+            sx={{ width: "300px", my: 1 }}
+            name="gender"
+            placeholder="Sexe"
+            value={userInfo.gender}
+            onChange={handleChange}/>
+          <TextField
+          required
             value={userInfo.jsuis}
             select
-            label="projet"
+            label="Projet"
             helperText="Please select your projet"
             sx={{ width: "300px", my: 1 }}
             onChange={handleChange}
@@ -113,8 +157,9 @@ const Signup = () => {
             ))}
           </TextField>
           <Button type="submit" variant="outlined" sx={{ my: 2 }}>
-            sign up
+            Next
           </Button>
+        </Box>
         </Box>
       </Container>
     </Box>

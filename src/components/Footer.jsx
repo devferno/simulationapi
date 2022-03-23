@@ -1,12 +1,20 @@
-import React from 'react';
-import {Box} from "@mui/material";
+import React from "react";
+import { Box ,Typography} from "@mui/material";
 
 const Footer = () => {
-  // return <Box sx={{height:"40px", padding:"10px 10px 0px 10px",width:"100%",textAlign:"center",position:"fixed",bottom:0,background:"#2C3333"}}>
-  return(
-    <Box></Box>
-  )
-  // </Box>;
+  return (
+    <Box
+      sx={{
+      
+        padding: "10px",
+        width: "100%",
+        textAlign: "center",
+      }}
+    >
+      <Typography variant="body2" sx={{fontWeight:"300"}}>@Simulation des Api</Typography>
+      <Typography variant="body2" sx={{fontWieght:"300"}}>Make with ❤ by Fernouny and Azelmad</Typography>
+    </Box>
+  );
 };
 
 export default Footer;

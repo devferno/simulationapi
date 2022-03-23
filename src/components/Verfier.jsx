@@ -16,19 +16,23 @@ const Verifier =()=>{
             setMessageError("valid");
             navigate("/profile");
             localStorage.removeItem("verified");
-        }).catch(err=>setMessageError("le code est pas valide ressayer"));
+        }).catch(err=>setMessageError("le code n'est pas valid ressayer"));
     }
 
     return(
-        <Box>
+        <Box sx={{margin:"10px 0",padding:"20px 0"}}>
             <Container>
-                <Box onSubmit={sendCode} component="form" sx={{margin:"40px auto", display:"flex", flexDirection:"column",alignItems:"center"}}>
-                <Typography variant="h4">Tu Dois verifier votre compte pour completer</Typography>
+                <Box onSubmit={sendCode} component="form" sx={{background:"white",padding:"20px",
+                maxWidth:"700px",
+                margin:"40px auto", display:"flex", flexDirection:"column",alignItems:"center"}}>
+                
+                <Typography variant="h5" gutterBottom sx={{fontWeight:"300",textAlign:"center"}} >Nous envoyaions  une code a votre boite email</Typography>
+                <Typography variant="caption" gutterBottom sx={{fontWeight:"400"}}>verifier le code pour simuler</Typography>
                 {messageError ?
                 <Alert severity="error">{messageError}</Alert>:messageError==="valid"?<Alert severity="success">success verification</Alert>:null
 }
                 <TextField variant="outlined" name="code" placeholder="code" sx={{ my:2} } value={code} onChange={(e)=>setCode(e.target.value)}/>
-                <Button size="small" type="submit" variant="contained" color="success" >verifier</Button>
+                <Button size="small" type="submit" variant="contained" color="success" disableElevation >verifier</Button>
                 </Box>
             </Container>
         </Box>
