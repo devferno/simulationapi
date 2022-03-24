@@ -14,7 +14,7 @@ const Verifier =()=>{
         
         axios.post("/verify-client-email/",userInfo).then(res=>{
             setMessageError("valid");
-            navigate("/profile");
+            navigate("/simuler");
             localStorage.removeItem("verified");
         }).catch(err=>setMessageError("le code n'est pas valid ressayer"));
     }

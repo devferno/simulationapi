@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { red } from "@mui/material/colors";
+import { champs, projet } from "../common";
 import TableAmortissment from "./TableAmortissment";
 import { Link, useNavigate } from "react-router-dom";
 import Back from "./back5.jpg";
@@ -41,34 +41,6 @@ const Simuler = () => {
     taux: "",
     projet: "",
   });
-  const projet = [
-    {
-      id: 1,
-      name: "J'ai besoin d'argent",
-    },
-    {
-      id: 2,
-      name: "Je finance mon véhicule d'occasion",
-    },
-    {
-      id: 3,
-      name: "Je Gère mes imprévus",
-    },
-    {
-      id: 4,
-      name: "Je finance mon véhicule neuf",
-    },
-    {
-      id: 5,
-      name: "J'équipe ma maison",
-    },
-  ];
-  const champs = [
-    { name: "prix", icon: "", placeholder: "Montant" },
-    { name: "duree", icon: "", placeholder: "Duree" },
-    { name: "taux", icon: "", placeholder: "Taux" },
-    { name: "salaire", icon: "", placeholder: "Salaire" },
-  ];
 
   const [data, setData] = useState();
   const [length, setLength] = useState();
@@ -77,20 +49,40 @@ const Simuler = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setSimulation((prev) => ({ ...prev, [name]: parseInt(value) }));
+    setSimulation((prev) => ({ ...prev, [name]: value }));
   };
-  useEffect(
-    () =>
-      setSimulation((prev) => ({
-        ...prev,
-        client: localStorage.getItem("client"),
-      })),
-    []
-  );
+  useEffect(() => {
+    if (localStorage.getItem("simulationInfo")) {
+      setSimulation((prev) => ({ ...prev, taux: parseFloat(simulation.taux) }));
+      axios
+        .post(
+          "/simulation/",
+          JSON.parse(localStorage.getItem("simulationInfo"))
+        )
+        .then((res) => {
+          setSimulation(JSON.parse(localStorage.getItem("simulationInfo")));
+          setData(res.data);
+          setLength(res.data.amortissement.length);
+          setHide(false);
+          setMsg(false);
+          myRef.current.scrollIntoView();
+          localStorage.removeItem("simulationInfo");
+        })
+        .catch((err) => {
+          if (err.response.status === 404) setMsg(true);
+        });
+    }
+    setSimulation((prev) => ({
+      ...prev,
+      client: localStorage.getItem("client"),
+    }));
+  }, []);
   const navigate = useNavigate();
   const [msg, setMsg] = useState(false);
   const sendData = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    setSimulation((prev) => ({ ...prev, taux: parseFloat(simulation.taux) }));
+
     axios
       .post("/simulation/", simulation)
       .then((res) => {
@@ -101,8 +93,11 @@ const Simuler = () => {
         myRef.current.scrollIntoView();
       })
       .catch((err) => {
-        if (err.response.status == 403) navigate("/verifier");
         if (err.response.status == 404) setMsg(true);
+        if (err.response.status == 403) {
+          localStorage.setItem("simulationInfo", JSON.stringify(simulation));
+          navigate("/verifier");
+        }
       });
   };
   return (
@@ -126,7 +121,7 @@ const Simuler = () => {
               alignItems: "center",
               p: 2,
               border: "solid 2px #e3e3e3",
-              // margin: "40px auto",
+
               width: { xs: "100%", md: "100%" },
             }}
           >
@@ -147,7 +142,8 @@ const Simuler = () => {
                 key={item.name}
                 value={simulation[item.name]}
                 placeholder={item.placeholder}
-                type={item.name}
+                type="number"
+                step="0.1"
                 name={item.name}
                 sx={{ width: "300px", my: 1 }}
                 label={item.placeholder}
