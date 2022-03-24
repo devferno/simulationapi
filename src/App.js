@@ -27,7 +27,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         <Route element={<PrivateOutlet />}>
-          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/simuler" element={<Simuler />} />
           <Route path="/historique" element={<Historique />} />
           <Route path="/verifier" element={<Verifier />} />
@@ -35,6 +35,7 @@ function App() {
 
         <Route path="/" element={<Credits />} />
       </Routes>
+      
       <Footer />
     </>
   );

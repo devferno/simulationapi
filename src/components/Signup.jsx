@@ -11,41 +11,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {blueGrey} from "@mui/material/colors";
 import Back from "./back3.jpg";
-//page where user will enter his info to signup
-//i get : info about the projet existed
-//user post : his email and projet then i redirect him to /profile page
+import {projets,genders} from "../common";
+
+
+
+
 
 const Signup = () => {
-  const projets = [
-    {
-      id: 1,
-      name: "Artisan",
-    },
-    {
-      id: 2,
-      name: "Autres professions",
-    },
-    {
-      id: 3,
-      name: "Commerçant",
-    },
-    {
-      id: 4,
-      name: "Fonctionnaire",
-    },
-    {
-      id: 5,
-      name: "Profession libérale",
-    },
-    {
-      id: 6,
-      name: "Retraité",
-    },
-    {
-      id: 7,
-      name: "Salarié du secteur privé",
-    },
-  ];
+
   const [userInfo, setUserInfo] = useState({ email: "", jsuis: "" });
 
   const handleChange = (event) => {
@@ -131,15 +104,21 @@ const Signup = () => {
             type="number"
             value={userInfo.age}
             onChange={handleChange}/>
-          <TextField
+           <TextField
           required
-            fullWidth label="Sexe"
-            variant="outlined"
-            sx={{ width: "300px", my: 1 }}
-            name="gender"
-            placeholder="Sexe"
             value={userInfo.gender}
-            onChange={handleChange}/>
+            select
+            label="Sexe"
+            sx={{ width: "300px", my: 1 }}
+            onChange={handleChange}
+            name="gender"
+          >
+            {genders.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
           required
             value={userInfo.jsuis}
