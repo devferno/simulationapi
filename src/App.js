@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
 import Signup from "./components/Signup";
 import { CssBaseline } from "@mui/material";
-import Profile from "./components/Profile";
 import Credits from "./components/Credits";
 import axios from "axios";
 import Simuler from "./components/Simuler";
@@ -27,7 +26,6 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         <Route element={<PrivateOutlet />}>
-          {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/simuler" element={<Simuler />} />
           <Route path="/historique" element={<Historique />} />
           <Route path="/verifier" element={<Verifier />} />
@@ -35,7 +33,7 @@ function App() {
 
         <Route path="/" element={<Credits />} />
       </Routes>
-      
+
       <Footer />
     </>
   );

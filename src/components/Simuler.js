@@ -93,8 +93,8 @@ const Simuler = () => {
         myRef.current.scrollIntoView();
       })
       .catch((err) => {
-        if (err.response.status == 404) setMsg(true);
-        if (err.response.status == 403) {
+        if (err.response.status === 404) setMsg(true);
+        if (err.response.status === 403) {
           localStorage.setItem("simulationInfo", JSON.stringify(simulation));
           navigate("/verifier");
         }
